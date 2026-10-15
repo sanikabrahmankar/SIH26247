@@ -1,0 +1,34 @@
+@import "tailwindcss";
+
+body {
+  margin: 0;
+  background: #070B10;
+  color: #cfe3ea;
+  font-family: Inter, system-ui, sans-serif;
+  background-image: linear-gradient(#0f1b26 1px, transparent 1px), linear-gradient(90deg, #0f1b26 1px, transparent 1px);
+  background-size: 32px 32px;
+  overflow: hidden; /* the HUD scrolls inside its own panels */
+}
+
+/* CRT scanline overlay (static, GPU-cheap, never intercepts clicks) */
+.crt::after {
+  content: " ";
+  display: block;
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.18) 50%), linear-gradient(90deg, rgba(255, 0, 0, 0.04), rgba(0, 255, 0, 0.02), rgba(0, 0, 255, 0.04));
+  z-index: 50;
+  background-size: 100% 2px, 3px 100%;
+  pointer-events: none;
+}
+
+/* No backdrop-filter and no CSS filters here: the radar repaints every frame and filters on it/its ancestors
+   force the whole region to be re-rasterised each frame. Day/night and sensor effects are drawn in the canvas instead. */
+.panel {
+  background: rgba(13, 20, 28, 0.92);
+  border: 1px solid #1c2c3a;
+  border-radius: 8px;
+  box-shadow: 0 0 15px rgba(34, 211, 238, 0.03), inset 0 0 20px rgba(0, 0, 0, 0.5);
+}
+
+.mono { font-family: ui-monospace, Menlo, monospace; }
